@@ -49,7 +49,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    unique = []
+    for i in corpus:
+        for j in i:
+            if j not in unique:
+                unique.append(j)
+    return unique
 
 
 '''
