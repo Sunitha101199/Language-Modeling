@@ -158,7 +158,7 @@ def runWeek1():
     unigrams = countUnigrams(book)
     startWords = countStartWords(book)
     bigrams = countBigrams(book)
-    print("Try adding some print statements in runWeek1() to explore the values in the varaibles above.")
+    print("Try adding some print statements in runWeek1() to explore the values in the variables above.")
 
 
 ### WEEK 2 TESTS ###
