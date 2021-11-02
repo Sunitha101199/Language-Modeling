@@ -80,7 +80,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    startwords = []
+    for i in corpus:
+        if i[0] not in startwords:
+            startwords.append(i[0])
+    return startwords
 
 
 '''
