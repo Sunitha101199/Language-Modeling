@@ -178,7 +178,17 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
-    return
+    topWords = {}
+    sortList = []
+    for i in sorted(probs, reverse=True):
+        sortList.append(i)
+    for i in sortList:
+        for j in words:
+            if j not in ignoreList and probs[words.index(j)]==i:
+                topWords[j] = probs[words.index(j)]
+        if len(topWords)==count:
+            break
+    return topWords
 
 
 '''
