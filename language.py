@@ -1,7 +1,7 @@
 """
 Language Modeling Project
-Name:
-Roll No:
+Name: Sunitha
+Roll No: 2021501001
 """
 
 from matplotlib.pyplot import text
@@ -247,6 +247,8 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTop50Words(corpus):
+    top50 = getTopWords(50,buildVocabulary(corpus), buildUnigramProbs(buildVocabulary(corpus),countUnigrams(corpus),50), ignore)
+    barPlot(top50, "Top 50 Unigrams based on their Probabilities")
     return
 
 
