@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from matplotlib.pyplot import text
 import language_tests as test
 
 project = "Language" # don't edit this
@@ -199,7 +200,13 @@ Returns: str
 '''
 from random import choices
 def generateTextFromUnigrams(count, words, probs):
-    return
+    textFromUnigrams = ""
+    j = 0
+    while j!=count:
+        for i in choices(words, weights=probs):
+            textFromUnigrams=textFromUnigrams+i+" "
+            j+=1
+    return textFromUnigrams
 
 
 '''
