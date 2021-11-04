@@ -179,14 +179,13 @@ Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
 def getTopWords(count, words, probs, ignoreList):
+    dictionary = {}
     topWords = {}
-    sortList = []
-    for i in sorted(probs, reverse=True):
-        sortList.append(i)
-    for i in sortList:
-        for j in words:
-            if j not in ignoreList and probs[words.index(j)]==i:
-                topWords[j] = probs[words.index(j)]
+    for i in range(len(words)):
+        dictionary[words[i]]=probs[i]
+    for key,value in sorted(dictionary.items(), key=lambda item: item[1], reverse = True):
+        if key not in ignoreList:
+            topWords[key] = value
         if len(topWords)==count:
             break
     return topWords
@@ -271,6 +270,10 @@ Parameters: 2D list of strs ; str
 Returns: None
 '''
 def graphTopNextWords(corpus, word):
+    dictionary = buildBigramProbs(countUnigrams(corpus), countBigrams(corpus))
+    top10NextWords = getTopWords(10, dictionary[word]["words"], dictionary[word]["probs"] , ignore)
+    title = "Top 10 words occurring after \""+word+"\" word"
+    barPlot(top10NextWords, title)
     return
 
 
