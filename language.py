@@ -147,7 +147,10 @@ Returns: list of floats
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
     unigramProbs = []
     for i in unigrams:
-        unigramProbs.append(unigramCounts[i]/totalCount)
+        if i in unigramCounts:
+           unigramProbs.append(unigramCounts[i]/totalCount)
+        else:
+            unigramProbs.append(0)
     return unigramProbs
 
 
@@ -284,7 +287,22 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    uniCorpus1 = buildVocabulary(corpus1)
+    uniCorpus2 = buildVocabulary(corpus2)
+    topWords = []
+    uniCor1Probs = buildUnigramProbs(uniCorpus1, countUnigrams(corpus1),getCorpusLength(corpus1))
+    uniCor2Probs = buildUnigramProbs(uniCorpus2, countUnigrams(corpus2),getCorpusLength(corpus2))
+    dictCorpus1 = getTopWords(topWordCount, uniCorpus1, uniCor1Probs, ignore)
+    dictCorpus2 = getTopWords(topWordCount, uniCorpus2, uniCor2Probs, ignore)
+    topWords1 = list(dictCorpus1.keys())
+    topWords2 = list(dictCorpus2.keys())
+    for i in topWords1+topWords2:
+        if i not in topWords:
+            topWords.append(i)
+    topWords1Probs = buildUnigramProbs(topWords, countUnigrams(corpus1),getCorpusLength(corpus1))
+    topWords2Probs = buildUnigramProbs(topWords, countUnigrams(corpus2),getCorpusLength(corpus2))
+    dictionary = {"topWords": topWords, "corpus1Probs": topWords1Probs, 'corpus2Probs': topWords2Probs}      
+    return dictionary
 
 
 '''
@@ -294,6 +312,8 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
+    topWords = setupChartData(corpus1,corpus2,numWords)
+    sideBySideBarPlots(topWords["topWords"], topWords["corpus1Probs"], topWords["corpus2Probs"], name1, name2, title)
     return
 
 
@@ -304,6 +324,8 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
+    topWords = setupChartData(corpus1, corpus2, numWords)
+    scatterPlot(list(topWords["corpus1Probs"]), list(topWords["corpus2Probs"]), list(topWords["topWords"]), title)
     return
 
 
