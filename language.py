@@ -163,8 +163,7 @@ Returns: dict mapping strs to (dicts mapping strs to (lists of values))
 def buildBigramProbs(unigramCounts, bigramCounts):
     bigramProbs = {}
     for prevWord in bigramCounts:
-        words = [] 
-        probs = []
+        words, probs = [], []
         tempDict = {}
         for i in bigramCounts[prevWord]:
             words.append(i)
